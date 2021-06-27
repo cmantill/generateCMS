@@ -33,3 +33,21 @@ python multi_crab_submit_GravitonToHHToWWWW_step0.py
 ```
 
 ## Simulation step
+
+```
+
+# setup	CMSSW
+cmsrel CMSSW_9_4_7
+cd CMSSW_9_4_7/src/
+
+cmsenv
+source /cvmfs/cms.cern.ch/common/crab-setup.sh prod
+
+# Copy configs
+cp PATH/gen_flatHiggs/simulation_step/*.py .
+
+STEP1
+# get dataset name of the private dataset with `crab status crab_directory_of_private_sample`
+# change output directory in crab config and configuration file/name
+python multi_crab_submit_step1.py
+```

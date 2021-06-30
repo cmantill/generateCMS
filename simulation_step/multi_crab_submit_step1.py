@@ -41,14 +41,14 @@ if __name__ == '__main__':
     ## From now on that's what users should modify: this is the a-la-CRAB2 configuration part. ##
     #############################################################################################
     datasetToNameDict = {
-        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try3-166da30d6b0bc00e6b7f096d2276e006/USER': 'PrivateProduction_Fall17_DR_step1_GravitonToHHToWWWW_GENSIM_batch1_try3',
-        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try2-166da30d6b0bc00e6b7f096d2276e006/USER': 'PrivateProduction_Fall17_DR_step1_GravitonToHHToWWWW_GENSIM_batch1_try2',
+        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try3-166da30d6b0bc00e6b7f096d2276e006/USER': 'PrivateProduction_Fall17_DR_step1_GravitonToHHToWWWW_batch1_try3',
+        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try2-166da30d6b0bc00e6b7f096d2276e006/USER': 'PrivateProduction_Fall17_DR_step1_GravitonToHHToWWWW_batch1_try2',
         }
 
 
     datasetToOutput = {
-        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try3-166da30d6b0bc00e6b7f096d2276e006/USER': '/store/user/cmantill/privateProduction/DR/step1/RunIIFall17/GENSIM/GravitonToHHToWWWW_part1/v1/batch1_try3/',
-        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try2-166da30d6b0bc00e6b7f096d2276e006/USER': '/store/user/cmantill/privateProduction/DR/step1/RunIIFall17/GENSIM/GravitonToHHToWWWW_part1/v1/batch1_try2/',
+        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try3-166da30d6b0bc00e6b7f096d2276e006/USER': '/store/user/cmantill/privateProduction/DR/step1/RunIIFall17/GravitonToHHToWWWW_part1/v1/batch1_try3/',
+        '/GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try2-166da30d6b0bc00e6b7f096d2276e006/USER': '/store/user/cmantill/privateProduction/DR/step1/RunIIFall17/GravitonToHHToWWWW_part1/v1/batch1_try2/',
         }
 
 

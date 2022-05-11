@@ -66,5 +66,6 @@ if __name__ == '__main__':
     print(config.Data.inputDataset)
     print(config.Data.outLFNDirBase)
 
-    #submit(config)
+    submit(config)
 
+    

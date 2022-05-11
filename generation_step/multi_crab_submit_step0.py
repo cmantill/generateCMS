@@ -56,5 +56,5 @@ if __name__ == '__main__':
     config.JobType.numCores = 1
     print 'config %s' %(config.JobType.psetName)
     print 'output %s' %(config.Data.outLFNDirBase)
-    #submit(config)
+    submit(config)
         

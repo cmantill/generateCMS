@@ -56,7 +56,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(20971520),
-    fileName = cms.untracked.string('file:JME-RunIIFall17GS-00017_lnuqq.root'),
+    fileName = cms.untracked.string('file:JME-00017.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
@@ -80,31 +80,23 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
 
 model = "BulkGraviton_hh_GF_HH_narrow"
 mpoints=[]
-mH_l=50
-mH_r=250
-mH_step=10
-mX_l=600
-mX_r=6000
-mX_step=300
-mX_tmp=mX_l
-mX_upper=2400
-while mX_tmp <= mX_r:
-        mH_tmp=mH_l;
-        while mH_tmp <=mH_r:
-                mpoints.append([mX_tmp,mH_tmp]);
-                if mH_tmp < 30: 
-                        mH_step=5;
-                else: 
-                        mH_step=10;
-                mH_tmp+=mH_step;
-        mX_tmp+=mX_step;
+mH = [15,20,25] + list(range(30,250,10))
+mX = {
+        1: [600,900,1200,1500,1800,2100,2400,2700,3000,3300], # part1
+        2: [700,1000,1300,1600,1900,2200,2500,2800,3100,3400], #part2
+        3: [800,1100,1400,1700,2000,2300,2600,2900,3200,3500] #part3
+}
+for h in mH:
+        for key,xpoints in mX.items():
+                for mx in xpoints:
+                        mpoints.append([mx,key,h])
 
 for point in mpoints:
         process.generator.RandomizedParameters.append(
                 cms.PSet(
                         ConfigWeight = cms.double(1),
-                        GridpackPath = cms.string('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/BulkGraviton_hh_GF_HH_part1/%s_MX%s_MH%s_slc6_amd64_gcc630_CMSSW_9_3_8_tarball.tar.xz' % (model,point[0], point[1])),
-                        ConfigDescription = cms.string('%s_MX%s_MH%s'% (model,point[0], point[1])),
+                        GridpackPath = cms.string('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/BulkGraviton_hh_GF_HH_part%i/%s_MX%s_MH%s_slc6_amd64_gcc630_CMSSW_9_3_8_tarball.tar.xz' % (point[1],model,point[0], point[2])),
+                        ConfigDescription = cms.string('%s_MX%s_MH%s'% (model,point[0], point[2])),
                         PythiaParameters = cms.PSet(
                                 parameterSets = cms.vstring('pythia8CommonSettings', 
                                                             'pythia8CP5Settings', 
@@ -112,16 +104,8 @@ for point in mpoints:
                                                             'processParameters'),
                                 processParameters = cms.vstring('25:onMode = off', 
                                                                 '25:oneChannel = 1 1.0 100 -24 24', 
-                                                                '25:addChannel = 1 0.33333 100 15 -15',
                                                                 '25:m0 = %s'%point[1], 
-                                                                'ResonanceDecayFilter:filter = on',
-                                                                'ResonanceDecayFilter:exclusive = off', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
-                                                                'ResonanceDecayFilter:eMuAsEquivalent    = off', #on: treat electrons and muons as equivalent
-                                                                'ResonanceDecayFilter:eMuTauAsEquivalent = on',  #on: treat electrons, muons, and taus as equivalent
-                                                                'ResonanceDecayFilter:allNuAsEquivalent  = on',  #on: treat all three neutrino flavours as equivalent
-                                                                'ResonanceDecayFilter:udscbAsEquivalent  = on', #on: treat u,d,s,c,b quarks as equivalent
-                                                                'ResonanceDecayFilter:daughters = 11,11,1,1',
-                                                        ),
+                                                                'ResonanceDecayFilter:filter = on'),
                                 pythia8CP5Settings = cms.vstring('Tune:pp 14', 
                                                                  'Tune:ee 7', 
                                                                  'MultipartonInteractions:ecmPow=0.03344', 
@@ -139,14 +123,14 @@ for point in mpoints:
                                                                  'MultipartonInteractions:alphaSvalue=0.118', 
                                                                  'MultipartonInteractions:alphaSorder=2', 
                                                                  'TimeShower:alphaSorder=2', 
-                                                                 'TimeShower:alphaSvalue=0.118'),
+                                                                'TimeShower:alphaSvalue=0.118'),
                                 pythia8CommonSettings = cms.vstring('Tune:preferLHAPDF = 2', 
                                                                     'Main:timesAllowErrors = 10000', 
                                                                     'Check:epTolErr = 0.01', 
                                                                     'Beams:setProductionScalesFromLHEF = off', 
                                                                     'SLHA:keepSM = on', 
                                                                     'SLHA:minMassSM = 1000.', 
-                                                                    'ParticleDecays:limitTau0 = on', 
+                                                                'ParticleDecays:limitTau0 = on', 
                                                                     'ParticleDecays:tau0Max = 10', 
                                                                     'ParticleDecays:allowPhotonRadiation = on'),
                                 pythia8PSweightsSettings = cms.vstring('UncertaintyBands:doVariations = on', 

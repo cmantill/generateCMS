@@ -1,13 +1,18 @@
-if __name__ == '__main__':
+import os
 
-    #filter efficiency
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--name', type=str, default='GravitonToHHToWWWW', help='name of dataset')
+    parser.add_argument('--config', type=str, default='GravitonToHHToWWWW_lowMX_cfg.py',  help='config of dataset')
+    parser.add_argument('--eosdir', type=str, default='/store/user/cmantill/privateProduction/GS/', help='eosdir')
+    parser.add_argument('--site', type=str, default='T2_US_Caltech_Ceph', help='site')
+    args = parser.parse_args()
 
     from CRABAPI.RawCommand import crabCommand
     from CRABClient.ClientExceptions import ClientException
     from httplib import HTTPException
 
-    #from CRABClient.UserUtilities import config
-    #config = config()
     from WMCore.Configuration import Configuration
     config = Configuration()
 
@@ -28,8 +33,7 @@ if __name__ == '__main__':
     config.Data.publication = True
 
     config.section_("Site")
-    #config.Site.storageSite = 'T2_US_Caltech'
-    config.Site.storageSite = 'T2_US_Caltech_Ceph'
+    config.Site.storageSite = args.site
     # We want to put all the CRAB project directories from the tasks we submit here into one common directory.
     # That's why we need to set this parameter (here or above in the configuration file, it does not matter, we will not overwrite it).
 
@@ -44,23 +48,13 @@ if __name__ == '__main__':
     #############################################################################################
     ## From now on that's what users should modify: this is the a-la-CRAB2 configuration part. ##
     #############################################################################################
-    ev = 150000 #100k events
-    mode_list = ["GravitonToHHToWWWW_part1"]
-    # mode_list = ["GravitonToHHToWWWW_part2"]
-    # mode_list = ["GravitonToHHToWWWW_lnuqq"]
-    pset_dir = "/afs/cern.ch/user/c/cmantill/work/public/samples/Fall17/CMSSW_9_3_16/src"
-    for i in range(len(mode_list)):
-	mode = mode_list[i]
-        spec = mode
-        
-        config.General.requestName = 'PrivateProduction_Fall17_'+mode+'_GENSIM_batch1'
-        config.Data.outputPrimaryDataset = spec
-        config.Data.outLFNDirBase = '/store/user/cmantill/privateProduction/GS/RunIIFall17/GENSIM/'+ mode + "/v1/batch1/"
-        config.JobType.psetName = pset_dir + "/JME-RunIIFall17GS-00017-GravitonToHHToWWWW_highMX_cfg.py"
-        # config.JobType.psetName = pset_dir + "/JME-RunIIFall17GS-00017-GravitonToHHToWWWW_highMX_part2_cfg.py"
-        # config.JobType.psetName = pset_dir + "/JME-RunIIFall17GS-00017-GravitonToHHToWWWW_lnuqq_cfg.py"
-        config.JobType.numCores = 1
-        print 'config %s' %(config.JobType.psetName)
-        print 'output %s' %(config.Data.outLFNDirBase)
-        submit(config)
+    pset_dir = os.environ["CMSSW_BASE"]+"/src"
+    config.General.requestName = 'Private_'+args.name+'_GENSIM'
+    config.Data.outputPrimaryDataset = args.name
+    config.Data.outLFNDirBase = args.eosdir + args.name
+    config.JobType.psetName = pset_dir + "/GravitonToHHToWWWW_lowMX_cfg.py"
+    config.JobType.numCores = 1
+    print 'config %s' %(config.JobType.psetName)
+    print 'output %s' %(config.Data.outLFNDirBase)
+    #submit(config)
         

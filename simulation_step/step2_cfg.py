@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: step2 --filein file:SUS-RunIIFall17DRPremix-00183_step1.root --fileout file:SUS-RunIIFall17DRPremix-00183.root --mc --eventcontent AODSIM --runUnscheduled --datatier AODSIM --conditions 94X_mc2017_realistic_v17 --step RAW2DIGI,RECO,RECOSIM,EI --nThreads 8 --era Run2_2017 --python_filename SUS-RunIIFall17DRPremix-00183_2_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 10
+# with command line options: --python_filename HIG-RunIISummer20UL17RECO-00899_1_cfg.py --eventcontent AODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier AODSIM --fileout file:HIG-RunIISummer20UL17RECO-00899.root --conditions 106X_mc2017_realistic_v6 --step RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --filein file:/afs/cern.ch/user/c/cmantill/work/public/samples/UL/CMSSW_9_4_14_UL_patch1/src/HIG-RunIISummer20UL17HLT-00899.root --era Run2_2017 --runUnscheduled --no_exec --mc -n 10
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
@@ -18,23 +18,19 @@ process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.RawToDigi_cff')
+process.load('Configuration.StandardSequences.L1Reco_cff')
 process.load('Configuration.StandardSequences.Reconstruction_cff')
 process.load('Configuration.StandardSequences.RecoSim_cff')
-process.load('CommonTools.ParticleFlow.EITopPAG_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(50)
+    input = cms.untracked.int32(10)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring(
-        #'/store/group/phys_exotica/privateProduction/DR/step1/RunIIFall17/GENSIM/WplusH_HToSSTobbbb_ms55_pl10000/v2/WplusH_HToSSTobbbb_ms55_pl10000_ev150000/crab_CMSSW_9_4_12_PrivateProduction_Fall17_DR_step1_WplusH_HToSSTobbbb_ms55_pl10000_v2_DR_CaltechT2/191014_015936/0000/SUS-RunIIFall17DRPremix-00183_step1_99.root'               
-        '/store/group/phys_exotica/privateProduction/DR/step1/RunIIFall17/GENSIM/GravitonToHHToZZZZTo8Q/batch1/v2/GravitonToHHToZZZZTo8Q/crab_PrivateProduction_Fall17_DR_step1_GravitonToHHToZZZZTo8Q_GENSIM_batch1_v2/200330_214153/0002/SUS-RunIIFall17DRPremix-00183_step1_2504.root'
-
-    ),
+    fileNames = cms.untracked.vstring('file:../../CMSSW_9_4_14_UL_patch1/src/JME-RunIISummer20UL17HLT-00017.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -44,13 +40,12 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('step2 nevts:10'),
+    annotation = cms.untracked.string('--python_filename nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
 
 # Output definition
-
 
 process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),
@@ -60,7 +55,7 @@ process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(31457280),
-    fileName = cms.untracked.string('file:SUS-RunIIFall17DRPremix-00183.root'),
+    fileName = cms.untracked.string('file:JME-RunIISummer20UL17RECO-00017.root'),
     outputCommands = process.AODSIMEventContent.outputCommands
 )
 
@@ -68,24 +63,20 @@ process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_mc2017_realistic_v17', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mc2017_realistic_v6', '')
 
 # Path and EndPath definitions
 process.raw2digi_step = cms.Path(process.RawToDigi)
+process.L1Reco_step = cms.Path(process.L1Reco)
 process.reconstruction_step = cms.Path(process.reconstruction)
 process.recosim_step = cms.Path(process.recosim)
-process.eventinterpretaion_step = cms.Path(process.EIsequence)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.AODSIMoutput_step = cms.EndPath(process.AODSIMoutput)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.raw2digi_step,process.reconstruction_step,process.recosim_step,process.eventinterpretaion_step,process.endjob_step,process.AODSIMoutput_step)
+process.schedule = cms.Schedule(process.raw2digi_step,process.L1Reco_step,process.reconstruction_step,process.recosim_step,process.endjob_step,process.AODSIMoutput_step)
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
-
-#Setup FWK for multithreaded
-process.options.numberOfThreads=cms.untracked.uint32(1)
-process.options.numberOfStreams=cms.untracked.uint32(0)
 
 # customisation of the process.
 

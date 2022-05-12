@@ -59,15 +59,6 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0)
 )
 
-process.LHEoutput = cms.OutputModule("PoolOutputModule",
-    dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('LHE'),
-        filterName = cms.untracked.string('')
-    ),
-    fileName = cms.untracked.string('file:B2G-RunIISummer20UL17wmLHEGEN-01424_inLHE.root'),
-    outputCommands = process.LHEEventContent.outputCommands,
-    splitLevel = cms.untracked.int32(0)
-)
 
 # Additional output definition
 
@@ -147,6 +138,21 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1)
 )
 
+process.gencount = cms.EDFilter("CandViewCountFilter",
+    minNumber = cms.uint32(1),
+    src = cms.InputTag("genfilter")
+)
+
+process.genfilter = cms.EDFilter("GenParticleSelector",
+                                 cut = cms.string('(pdgId==25) && pt>190. && isLastCopy()'),
+                                 src = cms.InputTag("genParticlesForFilter")
+)
+
+process.genParticlesForFilter = cms.EDProducer("GenParticleProducer",
+    abortOnUnknownPDGCode = cms.untracked.bool(False),
+    saveBarCodes = cms.untracked.bool(True),
+    src = cms.InputTag("generator","unsmeared")
+)
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/GluGluToHH/ggHH_EWChL_slc7_amd64_gcc700_CMSSW_10_6_19_cHHH1_working.tgz'),
@@ -157,7 +163,14 @@ process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 )
 
 
-process.ProductionFilterSequence = cms.Sequence(process.generator)
+process.LHEHiggsPtFilter = cms.EDFilter("LHEPtFilter",
+  selectedPdgIds = cms.vint32(25),
+  ptMin=cms.double(135.),
+  ptMax=cms.double(1e10),
+  src=cms.InputTag("externalLHEProducer")
+)
+
+process.ProductionFilterSequence = cms.Sequence(process.LHEHiggsPtFilter+process.generator+process.genParticlesForFilter+process.genfilter+process.gencount)
 
 # Path and EndPath definitions
 process.lhe_step = cms.Path(process.externalLHEProducer)
@@ -168,6 +181,7 @@ process.RAWSIMoutput_step = cms.EndPath(process.RAWSIMoutput)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.lhe_step,process.generation_step,process.genfiltersummary_step,process.endjob_step,process.RAWSIMoutput_step)
+
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 # filter all path with the production filter sequence

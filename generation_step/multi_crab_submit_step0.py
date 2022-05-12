@@ -52,7 +52,7 @@ if __name__ == '__main__':
     config.General.requestName = 'Private_'+args.name+'_GENSIM'
     config.Data.outputPrimaryDataset = args.name
     config.Data.outLFNDirBase = args.eosdir + args.name
-    config.JobType.psetName = pset_dir + "/GravitonToHHToWWWW_lowMX_cfg.py"
+    config.JobType.psetName = pset_dir + "/"+ args.config
     config.JobType.numCores = 1
     print 'config %s' %(config.JobType.psetName)
     print 'output %s' %(config.Data.outLFNDirBase)

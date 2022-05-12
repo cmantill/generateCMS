@@ -36,6 +36,8 @@ STEP1
 # get dataset name of the private dataset with `crab status crab_directory_of_private_sample`, e.g.
 python multi_crab_submit_reco.py --step 1 --dataset /GravitonToHHToWWWW_part1/cmantill-crab_PrivateProduction_Fall17_GravitonToHHToWWWW_part1_GENSIM_batch1_try3-166da30d6b0bc00e6b7f096d2276e006/USER --name GravitonToHHToWWWW
 
+NOTE: for `GluGluToHHTobbVV_node_cHHH1_HpT190_cfg.py` use `CMSSW_10_6_27` release
+
 STEP1p5
 python multi_crab_submit_reco.py --step 1p5 --dataset /GravitonToHHToWWWW_lnuqq/cmantill-crab_UL17_step1_lnuqq-c7276a76d06b45ee1f500f5860c54a3b/USER --name GravitonToHHToWWWW
 ```

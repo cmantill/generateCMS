@@ -7,6 +7,7 @@ if __name__ == '__main__':
     parser.add_argument('--config', type=str, default='GluGluToHHTobbVV_node_cHHH1_HpT190_cfg',  help='config of dataset')
     parser.add_argument('--eosdir', type=str, default='/store/user/cmantill/privateProduction/ONESTEP/', help='eosdir')
     parser.add_argument('--site', type=str, default='T2_US_Caltech_Ceph', help='site')
+    parser.add_argument('--begin-seed', type=int, default=0, help='begin seed, should be between 0 and 99')
     args = parser.parse_args()
 
     from CRABAPI.RawCommand import crabCommand
@@ -62,7 +63,7 @@ if __name__ == '__main__':
     config.JobType.maxMemoryMB = 4000
     config.JobType.numCores = 1
     config.JobType.sendExternalFolder = True
-    config.JobType.scriptArgs = ['nevent=%i'%nevent, 'nthread=1', 'procname=%s'%args.config, 'beginseed=0']  
+    config.JobType.scriptArgs = ['nevent=%i'%nevent, 'nthread=1', 'procname=%s'%args.config, 'beginseed=%i'%args.begin_seed]  
     config.JobType.scriptExe = 'exe.sh'
 
     print 'config %s' %(config.JobType.psetName)

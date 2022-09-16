@@ -1,5 +1,5 @@
-# gen_flatHiggs
-Generation config scripts for flat mass samples
+# generateCMS
+Generation config scripts for MC samples in CMS.
 
 ## Setup
 

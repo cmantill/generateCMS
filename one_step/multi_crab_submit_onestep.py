@@ -27,11 +27,12 @@ if __name__ == '__main__':
 
     config.section_("Data")
     #nevent = 10
-    nevent = 500
+    nevent = 400
     config.Data.inputDBS = 'global'
     config.Data.splitting = 'EventBased'
     config.Data.unitsPerJob = nevent
-    config.Data.totalUnits = 2000000 
+    config.Data.totalUnits = 400000
+    #config.Data.totalUnits = 2000000 
     #config.Data.totalUnits = 1 # for testing
     config.Data.publication = True
     config.Data.allowNonValidInputDataset = True
@@ -59,8 +60,9 @@ if __name__ == '__main__':
     config.Data.outLFNDirBase = args.eosdir + args.name
     config.JobType.allowUndistributedCMSSW = True
     config.JobType.psetName = 'FAKEMiniAODv2_cfg.py'
+    # config.JobType.psetName = 'FAKENanoAODv9_cfg.py'
     config.JobType.inputFiles = ['FrameworkJobReport.xml', 'inputs']
-    config.JobType.maxMemoryMB = 4000
+    config.JobType.maxMemoryMB = 5000
     config.JobType.numCores = 1
     config.JobType.sendExternalFolder = True
     config.JobType.scriptArgs = ['nevent=%i'%nevent, 'nthread=1', 'procname=%s'%args.config, 'beginseed=%i'%args.begin_seed]  

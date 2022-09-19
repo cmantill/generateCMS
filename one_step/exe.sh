@@ -93,7 +93,10 @@ cmsDriver.py --python_filename RECO_cfg.py --eventcontent AODSIM --customise Con
 # cmsDriver.py --python_filename NanoAODv9_cfg.py --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:nanov9.root --conditions 106X_mc2017_realistic_v9 --step NANO --filein file:miniv2.root --era Run2_2017,run2_nanoAOD_106Xv2 --no_exec --mc --nThreads $NTHREAD -n $NEVENT || exit $? ;
 # cmsRun -j FrameworkJobReport.xml NanoAODv9_cfg.py # produce FrameworkJobReport.xml in the last step
 
-
 ## Run MiniAODv2 with -j FrameworkJobReport.xml 
-cmsDriver.py --python_filename MiniAODv2_cfg.py --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:miniv2.root --conditions 106X_mc2017_realistic_v9 --step PAT --procModifiers run2_miniAOD_UL --geometry DB:Extended --filein file:reco.root --era Run2_2017 --runUnscheduled --no_exec --mc --nThreads $NTHREAD -n $NEVENT || exit $? ;
+cmsDriver.py --python_filename MiniAODv2_cfg.py --eventcontent MINIAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier MINIAODSIM --fileout file:miniv2.root --conditions 106X_mc2017_realistic_v9 --step PAT --procModifiers run2_miniAOD_UL --geometry DB:Extended --filein file:reco.root --era Run2_2017 --runUnscheduled --mc --nThreads $NTHREAD -n $NEVENT || exit $? ;
 cmsRun -j FrameworkJobReport.xml MiniAODv2_cfg.py
+
+## Run NanoAODv9
+#cmsDriver.py  --python_filename NanoAODv9_cfg.py --eventcontent NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier NANOAODSIM --fileout file:nanov9.root --conditions 106X_mc2017_realistic_v9 --step NANO --filein file:miniv2.root --era Run2_2017,run2_nanoAOD_106Xv2 --no_exec --mc  --nThreads $NTHREAD -n $NEVENT || exit $? ; 
+#cmsRun -j FrameworkJobReport.xml NanoAODv9_cfg.py

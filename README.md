@@ -6,8 +6,10 @@ Generation config scripts for MC samples in CMS.
 ```
 # clone repo
 git clone git@github.com:cmantill/generateCMS.git
-
+```
 ## One step
+
+This step does all of the GEN steps (step1 to step3 - miniAOD) in a single crab job. Make sure you are in a crab environment and that you have a proxy.
 
 - Go into directory:
 ```

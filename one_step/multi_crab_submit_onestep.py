@@ -46,9 +46,9 @@ if __name__ == '__main__':
         try:
             crabCommand('submit', config = config)
         except HTTPException as hte:
-            print "Failed submitting task: %s" % (hte.headers)
+            print("Failed submitting task: %s" % (hte.headers))
         except ClientException as cle:
-            print "Failed submitting task: %s" % (cle)
+            print("Failed submitting task: %s" % (cle))
 
     #############################################################################################
     ## From now on that's what users should modify: this is the a-la-CRAB2 configuration part. ##
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     config.JobType.scriptArgs = ['nevent=%i'%nevent, 'nthread=1', 'procname=%s'%args.config, 'beginseed=%i'%args.begin_seed]  
     config.JobType.scriptExe = 'exe.sh'
 
-    print 'config %s' %(config.JobType.psetName)
-    print 'output %s' %(config.Data.outLFNDirBase)
+    print('config %s' %(config.JobType.psetName))
+    print('output %s' %(config.Data.outLFNDirBase))
     submit(config)
         

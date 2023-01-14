@@ -1,6 +1,6 @@
 # One step:
 
-Instructions from : https://github.com/colizz/hww-tagging/tree/main/crab_event_producer
+Instructions from : https://github.com/colizz/hww-tagging/tree/main/event_producer/crab_hww
 
 ## Crab submission:
 

@@ -67,7 +67,7 @@ if __name__ == '__main__':
     config.JobType.numCores = 1
     config.JobType.sendExternalFolder = True
     config.JobType.scriptArgs = ['nevent=%i'%nevent, 'nthread=1', 'procname=%s'%args.config, 'beginseed=%i'%args.begin_seed]  
-    config.JobType.scriptExe = 'exe_%.sh'%year
+    config.JobType.scriptExe = 'exe_%s.sh'%args.year
 
     print('config %s' %(config.JobType.psetName))
     print('output %s' %(config.Data.outLFNDirBase))

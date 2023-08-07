@@ -1,0 +1,19 @@
+defaults:
+  isMC: False
+  splitting: Automatic
+  year: 2022EE
+  pset: $CMSSW_BASE/src/generateCMS/nano_step/samples_dataPromptReco_2022EE.yaml
+  allowInvalid: True
+
+samples:
+  JetMET:
+    datasets:
+      Run2022E: /JetMET/Run2022E-PromptReco-v1/MINIAOD
+      Run2022F: /JetMET/Run2022F-PromptReco-v1/MINIAOD
+      Run2022G: /JetMET/Run2022G-PromptReco-v1/MINIAOD
+
+  Muon:
+    datasets:
+      Run2022E: /Muon/Run2022E-PromptReco-v1/MINIAOD
+      Run2022F: /Muon/Run2022F-PromptReco-v1/MINIAOD
+      Run2022G: /Muon/Run2022G-PromptReco-v1/MINIAOD

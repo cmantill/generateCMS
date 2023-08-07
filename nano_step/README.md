@@ -15,10 +15,12 @@ git cms-addpkg PhysicsTools/NanoAOD
 git clone -b nanov11-btagak4 https://github.com/cmantill/generateCMS.git
 cp generateCMS/nano_step/LeptonInJetProducer.cc PhysicsTools/NanoAOD/plugins/LeptonInJetProducer.cc
 cp generateCMS/nano_step/jetsAK4_Puppi_cff.py PhysicsTools/NanoAOD/python/jetsAK4_Puppi_cff.py
+cp  generateCMS/nano_step/triggerObjects_cff.py PhysicsTools/NanoAOD/python/triggerObjects_cff.py 
+scram b -j 8
 ```
 
-Note: At some point, we	will switch to ReReco (Partial,	for ABCD)
-https://cms-pdmv.cern.ch/pmp/historical?r=27Jun2023
+Note: At some point, we	will switch to ReReco
+https://cms-pdmv-prod.web.cern.ch/pmp/historical?r=27Jun2023&showDoneRequestsList=true
 Run3_2022_rereco, 124X_dataRun3_v15
 
 2022-ABCDPrompt
@@ -57,4 +59,11 @@ cmsDriver.py --python_filename test_nanoTuples_mc2022EE.py --eventcontent NANOAO
 --conditions 126X_mcRun3_2022_realistic_postEE_v1 --step NANO --scenario pp \
 --filein /store/mc/Run3Summer22EEMiniAODv3/GluGluHto2B_PT-200_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/MINIAODSIM/124X_mcRun3_2022_realistic_postEE_v1-v2/40000/01eb51b6-9cf1-44a5-8aa4-df1b60c1ccd5.root \
 --era Run3,run3_nanoAOD_124 --nThreads 4 --no_exec --mc	-n 100
+```
+
+# To Submit
+
+e.g.
+```
+python3 submit.py -y samples_MC_2022EE.yaml --username cmantill
 ```

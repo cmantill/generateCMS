@@ -18,7 +18,7 @@ sys.path.append(".")
 
 output_site = "T3_US_FNALLPC"
 requestname_base = "privatenano"
-production_tag = "v12"
+production_tag = "v11_trigobj"
 
 if __name__ == '__main__':
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parser.add_argument('--username', required=True, help = 'Username')
     args = parser.parse_args()
 
-    output_lfn_base = "/store/group/lpcdihiggsboost/nanov12/{username}".format(
+    output_lfn_base = "/store/group/lpcdihiggsboost/nano{production_tag}/{username}".format(
         username=args.username
     )
     with open(args.yaml) as f:

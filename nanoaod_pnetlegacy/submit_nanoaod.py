@@ -8,6 +8,18 @@ from CRABAPI.RawCommand import crabCommand
 path_to_config = str(Path(__file__).parent)
 
 config_per_eras = {
+    "2016APV": {
+        "mc": "RunIISummer20UL16NanoAODAPVv9_cfg.py",
+    },
+    "2016": {
+        "mc": "RunIISummer20UL16NanoAODv9_cfg.py",
+    },
+    "2017": {
+        "mc": "RunIISummer20UL17NanoAODv9_cfg.py",
+    },
+    "2018": {
+        "mc": "RunIISummer20UL18NanoAODv9_cfg.py",
+    },
     "2022": {
         "mc": "Run3Summer22NanoAODv12_cfg.py",
         "data": "Run2022C-E-22Sep2023NanoAODv12_cfg.py",
@@ -30,6 +42,34 @@ config_per_eras = {
 # list of miniaod samples
 # comment ununsed lines
 all_samples = {
+    "2016APV": {
+        "mc": {
+            "HH4b": {
+                "GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8": "/GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",
+            }
+        },
+    },
+    "2016": {
+        "mc": {
+            "HH4b": {
+                "GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8": "/GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM/",
+            }
+        },
+    },
+    "2017": {
+        "mc": {
+            "HH4b": {
+                "GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8": "/GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM/",
+            }
+        },
+    },
+    "2018": {
+        "mc": {
+            "HH4b": {
+                "GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8": "/GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM/",
+            }
+        },
+    },
     "2022": {
         "mc": {
             "QCD": {

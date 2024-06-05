@@ -28,7 +28,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:--python_filename_PAT.root'),
+    fileNames = cms.untracked.vstring('/store/mc/RunIISummer20UL16MiniAODAPVv2/GluGluToHHTo4B_cHHH1_TuneCP5_PSWeights_13TeV-powheg-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v2/30000/84544702-2CA6-4141-A012-46A009304897.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -38,7 +38,6 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('--python_filename nevts:1'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )

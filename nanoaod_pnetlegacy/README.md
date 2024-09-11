@@ -1,8 +1,9 @@
 # Production nanoAODv12
 
+IN EL8
+
 - Get release
 ```bash
-cmssw-el7
 cmsrel CMSSW_13_0_13
 cd CMSSW_13_0_13/src/
 cmsenv
@@ -26,17 +27,6 @@ python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
 
 ## Production Sep204
 
-- Run container (NEEDS TO BE DONE EVERY TIME)
-(LPC)
-```bash
-cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs -- /bin/bash -l
-```
-(LXPLUS)
-```bash
-cmssw-el7
-```
-
-Then:
 ```
 voms-proxy-init --voms cms --valid 168:00
 source /cvmfs/cms.cern.ch/crab3/crab.sh prod

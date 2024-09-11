@@ -21,7 +21,7 @@ cd generateCMS/nanoaod_pnetlegacy/
  
 - To submit samples, specify era, key and username, e.g.:
 ```bash
-python submit_nanoaod.py --era 2022EE --key mc --username cmantill
+python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
 ```
 
 ## Production Sep204
@@ -35,25 +35,25 @@ source /cvmfs/cms.cern.ch/crab3/crab.sh
 
 - cmantill
 ```bash
-python submit_nanoaod.py --era 2022 --key mc --username cmantill
-python submit_nanoaod.py --era 2022EE --key mc --username cmantill
-python submit_nanoaod.py --era 2023 --key mc --username cmantill
-python submit_nanoaod.py --era 2023BPix --key mc --username cmantill
+python3 submit_nanoaod.py --era 2022 --key mc --username cmantill
+python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
+python3 submit_nanoaod.py --era 2023 --key mc --username cmantill
+python3 submit_nanoaod.py --era 2023BPix --key mc --username cmantill
 ```
 
 - woodson
 ```bash
-python submit_nanoaod.py --era 2022 --key othermc --username woodson
-python submit_nanoaod.py --era 2022EE --key othermc --username woodson
-python submit_nanoaod.py --era 2023 --key othermc --username woodson
-python submit_nanoaod.py --era 2023BPix --key othermc --username woodson
+python3 submit_nanoaod.py --era 2022 --key othermc --username woodson
+python3 submit_nanoaod.py --era 2022EE --key othermc --username woodson
+python3 submit_nanoaod.py --era 2023 --key othermc --username woodson
+python3 submit_nanoaod.py --era 2023BPix --key othermc --username woodson
 ```
 
 - sixie
 ```
-python submit_nanoaod.py --era 2022 --key data --username sixie
-python submit_nanoaod.py --era 2022EE --key data-C-E --username sixie
-python submit_nanoaod.py --era 2022EE --key data-F-G --username sixie
-python submit_nanoaod.py --era 2023 --key data --username sixie
+python3 submit_nanoaod.py --era 2022 --key data --username sixie
+python3 submit_nanoaod.py --era 2022EE --key data-C-E --username sixie
+python3 submit_nanoaod.py --era 2022EE --key data-F-G --username sixie
+python3 submit_nanoaod.py --era 2023 --key data --username sixie
 python submit_nanoaod.py --era 2023BPix --key data --username sixie
 ```

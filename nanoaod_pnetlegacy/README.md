@@ -1,14 +1,5 @@
 # Production nanoAODv12
 
-- Run container (NEEDS TO BE DONE EVERY TIME)
-```
-cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs -- /bin/bash -l
-```
-- Get proxy
-```
-voms-proxy-init --voms cms --valid 168:00
-```
-
 - Get release
 ```
 cmsrel CMSSW_13_0_13

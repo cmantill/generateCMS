@@ -27,18 +27,35 @@ python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
 ## Production Sep204
 
 - Run container (NEEDS TO BE DONE EVERY TIME)
+(LPC)
 ```bash
 cmssw-el7 -p --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /uscms_data --bind /cvmfs -- /bin/bash -l
+```
+(LXPLUS)
+```bash
+cmssw-el7
+```
+
+Then:
+```
 voms-proxy-init --voms cms --valid 168:00
-source /cvmfs/cms.cern.ch/crab3/crab.sh
+source /cvmfs/cms.cern.ch/crab3/crab.sh prod
+```
+
+- rkansal
+```bash
+python3 submit_nanoaod.py --era 2022 --key mc --username rkansal
+python3 submit_nanoaod.py --era 2022EE --key mc --username rkansal
+python3 submit_nanoaod.py --era 2023 --key mc --username rkansal
+python3 submit_nanoaod.py --era 2023BPix --key mc --username rkansal
 ```
 
 - cmantill
 ```bash
-python3 submit_nanoaod.py --era 2022 --key mc --username cmantill
-python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
-python3 submit_nanoaod.py --era 2023 --key mc --username cmantill
-python3 submit_nanoaod.py --era 2023BPix --key mc --username cmantill
+python3 submit_nanoaod.py --era 2022 --key signal --username cmantill
+python3 submit_nanoaod.py --era 2022EE --key signal --username cmantill
+python3 submit_nanoaod.py --era 2023 --key signal --username cmantill
+python3 submit_nanoaod.py --era 2023BPix --key signal --username cmantill
 ```
 
 - woodson
@@ -55,5 +72,5 @@ python3 submit_nanoaod.py --era 2022 --key data --username sixie
 python3 submit_nanoaod.py --era 2022EE --key data-C-E --username sixie
 python3 submit_nanoaod.py --era 2022EE --key data-F-G --username sixie
 python3 submit_nanoaod.py --era 2023 --key data --username sixie
-python submit_nanoaod.py --era 2023BPix --key data --username sixie
+python3 submit_nanoaod.py --era 2023BPix --key data --username sixie
 ```

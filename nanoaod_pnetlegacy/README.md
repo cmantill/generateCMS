@@ -25,6 +25,16 @@ cd generateCMS/nanoaod_pnetlegacy/
 python3 submit_nanoaod.py --era 2022EE --key mc --username cmantill
 ```
 
+## For 2024
+```
+cmsrel CMSSW_14_0_15
+cd CMSSW_14_0_15/src/
+cmsenv
+git cms-checkout-topic cmantill:14_0_5_ParT
+wget https://coli.web.cern.ch/coli/tmp/.240120-181907_ak8_stage2/model.onnx -O $CMSSW_BASE/src/RecoBTag/ONNXRuntime/data/ParticleTransformerAK8/GlobalMD/V02/model.onnx
+scram b -j 10
+```
+
 ## Production Sep204
 
 ```

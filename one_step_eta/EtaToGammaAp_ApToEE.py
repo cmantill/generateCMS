@@ -41,6 +41,10 @@ def main(args):
     ptfilter = args.ptfilter
     seed = args.seed
     ptstring = "" if ptfilter is None else f"EtaPt{ptfilter}"
+
+    if m_vector > 0.548:
+        print("WARNING: A' mass cannot be larger than Eta mass (0.548 GeV) for on-shell production. Exiting...")
+        exit()
     
     # Generate some mesons from LHC collisions, while disabling $\eta$ decays, so that we can collect them and decay by hand.
     pythia = pythia8.Pythia()
@@ -66,7 +70,7 @@ def main(args):
     pythia.init();
     
     # run one event to make sure interface is working
-    print(pythia.next())
+    #print(pythia.next())
 
     # Run main loop to generate LHC events, and collect produced mesons of interest
     pi0_total = 0
@@ -81,37 +85,38 @@ def main(args):
 
     # Begin event loop. Generate event. Skip if error. List first one.
     iEvent = 0
-    while iEvent < nevents:
+    while eta_total < nevents:
         if not pythia.next(): continue
 
-        if ptfilter is not None:
-            eta_pt = 0
-            eta_eta = 9999
-            for prt in pythia.event:
-                four_mom = vector.obj(E=prt.e(), px=prt.px(), py=prt.py(), pz=prt.pz())
-                if prt.isFinal() and prt.id() == 221:
-                    eta_pt = four_mom.pt
-                    eta_eta = abs(four_mom.eta)
-            if eta_pt < ptfilter or eta_eta < 2.4:
-                continue
-            #print(iEvent, eta_pt)
+        #print(pythia.event.list())
 
-        if iEvent % 10 == 0:
-            print(f"!!! Processing event {iEvent}...")
+        if eta_total % 1000 == 0 and eta_total>0:
+            print(f"!!! Processing etas {eta_total}...")
             
-        for prt in pythia.event:
+        for ip, prt in enumerate(pythia.event):
+            four_mom = vector.obj(E=prt.e(), px=prt.px(), py=prt.py(), pz=prt.pz())
+            
             if prt.isFinal() and prt.id() == 111:
                 pi0_total += 1
                 pi0_four_vector_list.append(np.array([prt.e(), prt.px(), prt.py(), prt.pz()]))
 
             if prt.isFinal() and prt.id() == 221:
-                eta_total += 1
-                eta_four_vector_list.append(np.array([prt.e(), prt.px(), prt.py(), prt.pz()]))
-
+                if ptfilter is not None:
+                    if four_mom.pt >= ptfilter and abs(four_mom.eta) < 2.4:
+                        #print("eta pt ",prt.pT())
+                        #print(eta_total)
+                        eta_total += 1
+                        eta_four_vector_list.append(np.array([prt.e(), prt.px(), prt.py(), prt.pz()]))
+                else:
+                    eta_total += 1
+                    eta_four_vector_list.append(np.array([prt.e(), prt.px(), prt.py(), prt.pz()]))
+                        
             if prt.isFinal() and prt.id() == 331:
                 eta_prime_total += 1
                 eta_prime_four_vector_list.append(np.array([prt.e(), prt.px(), prt.py(), prt.pz()]))
+
         iEvent+=1
+        #print(iEvent)
                 
     # End of event loop. Statistics. Histogram. Done.
     pythia.stat();
@@ -128,13 +133,17 @@ def main(args):
     pi0_four_vector_list = np.array(pi0_four_vector_list)
     eta_four_vector_list = np.array(eta_four_vector_list)
     eta_prime_four_vector_list = np.array(eta_prime_four_vector_list)
+
+    eta_pt = np.array([vector.obj(E=a[0], px=a[1], py=a[2], pz=a[3]).pt for a in eta_four_vector_list])
+    print("eta pt ",eta_pt)
+    
     
     # Decay the collected $\eta$s as $\eta \to \gamma V$, with $V\to e^+ e^-$
     mf = 0.000511 # GeV # mass of electron
     eta_decay_events = [generate_meson_decay_chain(p_meson, m_vector, mf) for p_meson in eta_four_vector_list]
     
     # particle order: [p_meson, p_gamma, p_vector, p_fermion1, p_fermion2]
-    print(eta_decay_events[0])
+    print("eta decay event (first event) ",eta_decay_events[0])
 
     # Check momentum conservation
     event = 0
@@ -146,7 +155,7 @@ def main(args):
 
     print("Write eta decay events")
     mass = f"{m_vector:.3f}".replace(".","p")
-    with open(f'EtaToGammaAp_ApToEE_Ap{mass}GeV_{nevents}{ptstring}_seed{seed}.csv', 'w') as f:
+    with open(f'EtaToGammaAp_ApToEE_Ap{mass}GeV_{eta_total}Etas_{ptstring}_seed{seed}.csv', 'w') as f:
         writer = csv.writer(f, delimiter=' ')
         for evt in eta_decay_events:
             for part in evt:

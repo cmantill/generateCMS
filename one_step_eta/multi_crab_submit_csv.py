@@ -59,8 +59,8 @@ if __name__ == '__main__':
     config.Data.outputPrimaryDataset = args.name
     config.Data.outLFNDirBase = args.eosdir + args.name
     config.JobType.allowUndistributedCMSSW = True
-    config.JobType.psetName = 'FAKEMiniAODv2_cfg.py'
-    config.JobType.inputFiles = ['FrameworkJobReport.xml', 'inputs']
+    config.JobType.psetName = 'FAKEMiniAOD_cfg.py'
+    config.JobType.inputFiles = ['FrameworkJobReport.xml']
     config.JobType.maxMemoryMB = 5000
     config.JobType.numCores = 1
     config.JobType.sendExternalFolder = True
